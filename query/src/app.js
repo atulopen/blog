@@ -1,12 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 const posts = {};
 
-app.get('posts', (req, res) => {
+app.get('/posts', (req, res) => {
+    res.send(posts);
 });
 
 app.post('/events', (req, res) => {
