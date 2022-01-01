@@ -8,14 +8,8 @@ app.use(express.json());
 
 const posts = {};
 
-app.get('/posts', (req, res) => {
-    res.send(posts);
-});
-
-app.post('/events', (req, res) => {
-    const {type, data} = req.body;
-
-    console.log(type, data);
+const handleEvents = (type, data) => {
+    console.log(`Processing ${type}`);
 
     if (type === 'postCreated') {
         const {id, title} = data;
@@ -41,11 +35,20 @@ app.post('/events', (req, res) => {
         comment.status = status;
         comment.content = content;
     }
+}
 
-    console.log(posts);
+app.get('/posts', (req, res) => {
+    res.send(posts);
+});
 
+app.post('/events', (req, res) => {
+    const {type, data} = req.body;
+    handleEvents(type, data);
     res.send({});
 });
 
 
-module.exports = app;
+module.exports = {
+    app,
+    handleEvents
+}
