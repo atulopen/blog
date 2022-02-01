@@ -8,7 +8,7 @@ const PostCreate = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const posts = await axios.post('http://localhost:4000/posts', {
+        const posts = await axios.post('http://posts-clusterip-srv:4000/posts', {
             title
         });
 
